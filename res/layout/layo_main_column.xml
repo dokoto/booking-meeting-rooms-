@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/style_search_button"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"    
+    tools:context=".Main" >
+
+    <TextView
+        android:id="@+id/layo_main_column_tv_reservation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/layo_main_column_tv_reservation_date"
+        android:layout_below="@+id/layo_main_column_tv_reservation_date"
+        android:layout_marginTop="5dp"
+        android:text="@string/time"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/layo_main_column_tv_room_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:lines="2"
+        android:maxWidth="150dp"
+        android:text="@string/room_address"
+        android:textColor="#68B009"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/layo_main_column_tv_reservation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/layo_main_column_tv_room_address"
+        android:layout_below="@+id/layo_main_column_tv_room_address"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/date"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textStyle="bold" />
+    
+</RelativeLayout>

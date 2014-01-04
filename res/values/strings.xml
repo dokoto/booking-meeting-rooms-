@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Booking Meeting Rooms</string>
+    <string name="action_settings">Settings</string>
+    <string name="room_address">(Sala Roja) Torrelaguna 77 Edificio A</string>
+    <string name="date">De: 13:00 a 14:30</string>
+    <string name="time">El: Hoy</string>
+    <string name="reservar_sala">Reservar sala</string>
+    <string name="lector_qr">Lector QR</string>
+    <string name="lector_nfc">Lector NFC</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="search">Search</string>
+    <string name="title_activity_take_picture">TakePicture</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
