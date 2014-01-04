@@ -9,7 +9,7 @@
     android:background="@drawable/style_search_button"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"    
-    tools:context=".Main" >
+    tools:context=".MainContainer" >
 
     <TextView
         android:id="@+id/layo_main_column_tv_reservation_time"

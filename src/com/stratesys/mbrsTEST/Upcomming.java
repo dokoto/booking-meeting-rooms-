@@ -41,7 +41,7 @@ public class Upcomming extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
+	{		
 		View rootView = inflater.inflate(R.layout.layo_upcoming, container, false);
 		LoadListOfBookings(rootView, inflater);
 		return rootView;
@@ -51,9 +51,10 @@ public class Upcomming extends Fragment
 	{
 		lv_option_menu_list = (ListView) rootView.findViewById(R.id.layo_upcoming_lv_options);
 		lv_option_menu_list.setTextFilterEnabled(true);
-		View footerView = inflater.inflate(R.layout.layo_upcoming_search, lv_option_menu_list, false);
-		lv_option_menu_list.addHeaderView(footerView);
-		EditText et_search = (EditText) rootView.findViewById(R.id.layo_upcoming_search_et_search);
+		//View footerView = inflater.inflate(R.layout.layo_upcoming_search, lv_option_menu_list, false);
+		//lv_option_menu_list.addHeaderView(footerView);
+		//EditText et_search = (EditText) rootView.findViewById(R.id.layo_upcoming_search_et_search);
+		EditText et_search = (EditText) rootView.findViewById(R.id.layo_upcoming_et_filter);
 		et_search.addTextChangedListener(new TextWatcher()
 		{
 

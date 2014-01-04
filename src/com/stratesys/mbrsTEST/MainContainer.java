@@ -1,26 +1,29 @@
 package com.stratesys.mbrsTEST;
 
 import android.os.Bundle;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.WindowManager;
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.app.ActionBar.Tab;
 
-public class Main extends FragmentActivity implements ActionBar.TabListener
+public class MainContainer extends FragmentActivity implements ActionBar.TabListener
 {
 	private String[] tabs = new String[3];
 	private ViewPager viewPager;
 	private TabsAdapterPage mAdapter;
 	private ActionBar actionBar;
- 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layo_main_tabs_container);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		LoadTabMenu();
+
 	}
 
 	@Override
@@ -86,5 +89,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener
 	public void onTabUnselected(Tab tab, FragmentTransaction ft)
 	{
 	}
-
+	
+	
 }

@@ -4,12 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
      
+    <EditText
+        android:id="@+id/layo_upcoming_et_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="15dp"
+        android:ems="10"
+        android:background="@drawable/style_border_edittext"
+        android:hint="Searching"        
+        android:inputType="text" />
+    
     <ListView
         android:id="@+id/layo_upcoming_lv_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-  		android:dividerHeight="1sp"  		
+        android:layout_below="@+id/layo_upcoming_et_filter"
+        android:divider="#FFFFFF"
+        android:dividerHeight="1sp" 
+        android:background="@drawable/style_rounded_corners"
+        android:layout_margin="10dp"
   		android:layout_marginTop="5dp">
     </ListView>
 <!-- android:layout_alignParentBottom="true" -->     

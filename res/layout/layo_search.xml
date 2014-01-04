@@ -32,6 +32,10 @@
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/layo_search_ib_booking_date"
         android:layout_marginLeft="10dp"
+        android:background="@drawable/style_border_edittext"
+        android:paddingLeft="15dp"
+        android:textColor="#89878A"
+        android:textStyle="bold"
         android:ems="10"
         android:hint="Booking Date"
         android:inputType="date" />
@@ -53,7 +57,11 @@
         android:layout_below="@+id/layo_search_et_booking_date"
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/layo_search_ib_booking_time"
+        android:background="@drawable/style_border_edittext"
         android:layout_marginLeft="10dp"
+        android:paddingLeft="15dp"
+        android:textColor="#89878A"
+        android:textStyle="bold"
         android:ems="10"
         android:hint="Booking Time"
         android:inputType="time" />
@@ -76,11 +84,11 @@
         android:layout_above="@+id/layo_search_bt_search"
         android:layout_alignParentLeft="true"
         android:fadeScrollbars="false" 
-        android:divider="@android:color/transparent"
+        android:divider="#FFFFFF"
   		android:dividerHeight="1sp" 
         android:layout_below="@+id/layo_search_et_booking_time"
-        android:layout_marginTop="10dp" 
-        android:layout_marginBottom="10dp">
+        android:background="@drawable/style_rounded_corners"
+        android:layout_margin="10dp">
     </ListView>
 
     <Button
