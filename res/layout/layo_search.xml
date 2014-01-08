@@ -12,33 +12,33 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:text="Capacity: 2"
         android:textColor="#89878A"
-        android:textStyle="bold"
-        android:textSize="16dp"
-        android:text="Capacity: 0" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <SeekBar
         android:id="@+id/layo_search_sb_capacity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layo_search_tv_capacity"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="30dp" />
 
     <EditText
         android:id="@+id/layo_search_et_booking_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layo_search_sb_capacity"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/layo_search_ib_booking_date"
-        android:layout_marginLeft="10dp"
         android:background="@drawable/style_border_edittext"
-        android:paddingLeft="15dp"
-        android:textColor="#89878A"
-        android:textStyle="bold"
         android:ems="10"
         android:hint="Booking Date"
-        android:inputType="date" />
+        android:inputType="date"
+        android:paddingLeft="15dp"
+        android:textColor="#89878A"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/layo_search_ib_booking_date"
@@ -55,16 +55,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layo_search_et_booking_date"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/layo_search_ib_booking_time"
         android:background="@drawable/style_border_edittext"
-        android:layout_marginLeft="10dp"
-        android:paddingLeft="15dp"
-        android:textColor="#89878A"
-        android:textStyle="bold"
         android:ems="10"
         android:hint="Booking Time"
-        android:inputType="time" />
+        android:inputType="time"
+        android:paddingLeft="15dp"
+        android:textColor="#89878A"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/layo_search_ib_booking_time"
@@ -81,31 +81,43 @@
         android:id="@+id/layo_search_lv_room_features"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/layo_search_bt_search"
+        android:layout_above="@+id/layo_search_ll_buttons"
         android:layout_alignParentLeft="true"
-        android:fadeScrollbars="false" 
-        android:divider="#FFFFFF"
-  		android:dividerHeight="1sp" 
         android:layout_below="@+id/layo_search_et_booking_time"
+        android:layout_margin="10dp"
         android:background="@drawable/style_rounded_corners"
-        android:layout_margin="10dp">
+        android:divider="#FFFFFF"
+        android:dividerHeight="1sp"
+        android:fadeScrollbars="false" >
     </ListView>
 
-    <Button
-        android:id="@+id/layo_search_bt_search"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/layo_search_ll_buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/style_search_button"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/ic_menu_search"
-        android:gravity="center_vertical|center_horizontal|left"
-        android:text="Search"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+        <Space
+            android:id="@+id/layo_search_space_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50" >
+        </Space>
+
+        <Button
+            android:id="@+id/layo_search_bt_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+            android:background="@drawable/style_search_button"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_menu_search"
+            android:text="Search"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </RelativeLayout>

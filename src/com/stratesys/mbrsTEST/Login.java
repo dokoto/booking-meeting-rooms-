@@ -12,7 +12,6 @@ import com.stratesys.mbrsTEST.MainContainer;
 public class Login extends Activity
 {
 	private Button bt_login;
-
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

@@ -1,7 +1,9 @@
 package com.stratesys.mbrsTEST;
 
 import java.util.ArrayList;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -9,11 +11,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ListView;
 
 public class Upcomming extends Fragment
 {
@@ -79,6 +84,16 @@ public class Upcomming extends Fragment
 		final ArrayList<Adapter_row> adapter_row = GetMyUpcomingRooms();
 		Adapter = new Adapter_BookingList(rootView.getContext(), adapter_row);
 		lv_option_menu_list.setAdapter(Adapter);
+		lv_option_menu_list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+			{
+				Intent intent = new Intent(getActivity(), RoomDetail.class);
+			    startActivity(intent);
+			}
+			
+		});
 	}
 
 	private ArrayList<Adapter_row> GetMyUpcomingRooms()

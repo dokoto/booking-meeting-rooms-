@@ -56,7 +56,7 @@ public class Search extends Fragment
 		ib_booking_time = (ImageButton) rootView.findViewById(R.id.layo_search_ib_booking_time);
 		et_booking_time = (EditText) rootView.findViewById(R.id.layo_search_et_booking_time);
 		sb_capacity.setMax(25);
-		sb_capacity.setProgress(0);
+		sb_capacity.setProgress(2);
 		lv_features_list = (ListView) rootView.findViewById(R.id.layo_search_lv_room_features);
 		final ArrayList<Adapter_row> adapter_row = new ArrayList<Adapter_row>();
 		adapter_row.add(new Adapter_row("Wi-Fi", false));
@@ -123,8 +123,10 @@ public class Search extends Fragment
 					@Override
 					public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 					{
-						et_booking_time.setText(String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
-
+						//et_booking_time.setText(String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
+						et_booking_time.setText( ((hourOfDay < 10) ? "0" : "") + String.valueOf(hourOfDay)  + ":" +
+								((minute < 10) ? "0" : "") + String.valueOf(minute)
+								);
 					}
 				});
 				time.show(getFragmentManager(), "Booking Time");
