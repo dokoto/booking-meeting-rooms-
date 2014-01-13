@@ -1,21 +1,25 @@
-/**
- * 
- */
 package com.stratesys.mbrsTEST;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import com.stratesys.mbrsTEST.Search.Adapter_FeatureList;
-import com.stratesys.mbrsTEST.Upcomming.Adapter_BookingList;
+import java.util.List;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +27,9 @@ public class RoomDetail extends Activity
 {
 	private ListView lv_features_list;
 	private Adapter_FeatureList Adapter;
+	private ImageButton ib_go_to_map;
+	private TextView tv_address;
+	private Geocoder geocoder;
 
 	private class Adapter_row
 	{
@@ -42,12 +49,41 @@ public class RoomDetail extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layo_room_detail);
 		LoadFeatures();
+		LoadEvents();
 	}
 
+	private void LoadEvents()
+	{
+		ib_go_to_map = (ImageButton) findViewById(R.id.layo_room_detail_ib_go_to_map);
+		ib_go_to_map.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0)
+			{
+				List<Address> locationList;
+				try
+				{
+					locationList = geocoder.getFromLocationName(tv_address.getText().toString(), 10);
+					if (locationList != null)
+					{
+						Address address = locationList.get(0);
+						String uri = String.format(Locale.getDefault(), "geo:%f,%f", address.getLatitude(), address.getLongitude());
+						Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+						startActivity(intent);
+					}
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}});
+	}
 	
 	private void LoadFeatures()
 	{
-		lv_features_list = (ListView) findViewById(R.id.layo_room_detail_lv_room_features);
+		geocoder = new Geocoder(this, Locale.getDefault());
+		tv_address = (TextView) findViewById(R.id.layo_room_detail_tv_address);
+		lv_features_list = (ListView) findViewById(R.id.layo_room_detail_lv_room_features);		
 		final ArrayList<Adapter_row> adapter_row = new ArrayList<Adapter_row>();
 		adapter_row.add(new Adapter_row("Wi-Fi", false));
 		adapter_row.add(new Adapter_row("Conference Call", false));

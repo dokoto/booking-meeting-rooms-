@@ -10,6 +10,25 @@ package com.stratesys.mbrsTEST;
 public final class R {
     public static final class attr {
     }
+    public static final class color {
+        public static final int contents_text=0x7f050000;
+        public static final int encode_view=0x7f050001;
+        public static final int possible_result_points=0x7f050002;
+        /**  Android standard ICS color 
+         */
+        public static final int result_minor_text=0x7f050003;
+        public static final int result_points=0x7f050004;
+        /**  Android standard ICS color 
+         */
+        public static final int result_text=0x7f050005;
+        public static final int result_view=0x7f050006;
+        public static final int status_text=0x7f050007;
+        public static final int transparent=0x7f050008;
+        public static final int viewfinder_laser=0x7f050009;
+        /**  Android standard ICS color 
+         */
+        public static final int viewfinder_mask=0x7f05000a;
+    }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
@@ -17,8 +36,10 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
+        public static final int half_padding=0x7f060003;
+        public static final int standard_padding=0x7f060002;
     }
     public static final class drawable {
         public static final int ab_background_textured_mbrstheme=0x7f020000;
@@ -81,96 +102,104 @@ public final class R {
         public static final int tab_unselected_pressed_mbrstheme=0x7f020039;
     }
     public static final class id {
-        public static final int action_settings=0x7f080029;
-        public static final int imageView1=0x7f080026;
-        public static final int layo_login_bt_login=0x7f080002;
-        public static final int layo_login_et_password=0x7f080001;
-        public static final int layo_login_et_user=0x7f080000;
-        public static final int layo_main_column_tv_reservation_date=0x7f080004;
-        public static final int layo_main_column_tv_reservation_time=0x7f080003;
-        public static final int layo_main_column_tv_room_address=0x7f080005;
-        public static final int layo_main_list_item_tv_date=0x7f080020;
-        public static final int layo_main_list_item_tv_date_sep=0x7f080021;
-        public static final int layo_main_list_item_tv_room=0x7f080025;
-        public static final int layo_main_list_item_tv_subjet=0x7f080022;
-        public static final int layo_main_list_item_tv_time=0x7f080023;
-        public static final int layo_main_list_item_tv_time_sep=0x7f080024;
-        public static final int layo_qrscan_ib_take_picture=0x7f080007;
-        public static final int layo_room_detail_bt_cancel=0x7f080011;
-        public static final int layo_room_detail_ib_go_to_map=0x7f08000b;
-        public static final int layo_room_detail_ll_body=0x7f08000c;
-        public static final int layo_room_detail_ll_fotter=0x7f08000d;
-        public static final int layo_room_detail_ll_header=0x7f080008;
-        public static final int layo_room_detail_lv_room_features=0x7f08000f;
-        public static final int layo_room_detail_space_button=0x7f080010;
-        public static final int layo_room_detail_tv_address=0x7f08000a;
-        public static final int layo_room_detail_tv_capacity=0x7f08000e;
-        public static final int layo_room_detail_tv_room_date_time=0x7f080009;
-        public static final int layo_search_bt_search=0x7f08001b;
-        public static final int layo_search_et_booking_date=0x7f080014;
-        public static final int layo_search_et_booking_time=0x7f080016;
-        public static final int layo_search_ib_booking_date=0x7f080015;
-        public static final int layo_search_ib_booking_time=0x7f080017;
-        public static final int layo_search_list_item_cb_selected=0x7f08001d;
-        public static final int layo_search_list_item_tv_feature=0x7f08001c;
-        public static final int layo_search_ll_buttons=0x7f080019;
-        public static final int layo_search_lv_room_features=0x7f080018;
-        public static final int layo_search_sb_capacity=0x7f080013;
-        public static final int layo_search_space_button=0x7f08001a;
-        public static final int layo_search_tv_capacity=0x7f080012;
-        public static final int layo_upcoming_et_filter=0x7f08001e;
-        public static final int layo_upcoming_lv_options=0x7f08001f;
-        public static final int layo_upcoming_search_et_search=0x7f080027;
-        public static final int pager=0x7f080006;
-        public static final int shape_my=0x7f080028;
+        public static final int action_settings=0x7f0a002d;
+        public static final int imageView1=0x7f0a002a;
+        public static final int layo_login_bt_login=0x7f0a0002;
+        public static final int layo_login_et_password=0x7f0a0001;
+        public static final int layo_login_et_user=0x7f0a0000;
+        public static final int layo_main_column_tv_reservation_date=0x7f0a0004;
+        public static final int layo_main_column_tv_reservation_time=0x7f0a0003;
+        public static final int layo_main_column_tv_room_address=0x7f0a0005;
+        public static final int layo_main_list_item_tv_date=0x7f0a0024;
+        public static final int layo_main_list_item_tv_date_sep=0x7f0a0025;
+        public static final int layo_main_list_item_tv_room=0x7f0a0029;
+        public static final int layo_main_list_item_tv_subjet=0x7f0a0026;
+        public static final int layo_main_list_item_tv_time=0x7f0a0027;
+        public static final int layo_main_list_item_tv_time_sep=0x7f0a0028;
+        public static final int layo_qr_scanner_camerapreview=0x7f0a0007;
+        public static final int layo_qr_scanner_overlap_controls_bt_rescan=0x7f0a000a;
+        public static final int layo_qr_scanner_overlap_controls_tv_result_text_capture=0x7f0a0009;
+        public static final int layo_qr_scanner_sf_viewfinder_view=0x7f0a0008;
+        public static final int layo_qrscan_ib_take_picture=0x7f0a000b;
+        public static final int layo_room_detail_bt_cancel=0x7f0a0015;
+        public static final int layo_room_detail_ib_go_to_map=0x7f0a000f;
+        public static final int layo_room_detail_ll_body=0x7f0a0010;
+        public static final int layo_room_detail_ll_fotter=0x7f0a0011;
+        public static final int layo_room_detail_ll_header=0x7f0a000c;
+        public static final int layo_room_detail_lv_room_features=0x7f0a0013;
+        public static final int layo_room_detail_space_button=0x7f0a0014;
+        public static final int layo_room_detail_tv_address=0x7f0a000e;
+        public static final int layo_room_detail_tv_capacity=0x7f0a0012;
+        public static final int layo_room_detail_tv_room_date_time=0x7f0a000d;
+        public static final int layo_search_bt_search=0x7f0a001f;
+        public static final int layo_search_et_booking_date=0x7f0a0018;
+        public static final int layo_search_et_booking_time=0x7f0a001a;
+        public static final int layo_search_ib_booking_date=0x7f0a0019;
+        public static final int layo_search_ib_booking_time=0x7f0a001b;
+        public static final int layo_search_list_item_cb_selected=0x7f0a0021;
+        public static final int layo_search_list_item_tv_feature=0x7f0a0020;
+        public static final int layo_search_ll_buttons=0x7f0a001d;
+        public static final int layo_search_lv_room_features=0x7f0a001c;
+        public static final int layo_search_sb_capacity=0x7f0a0017;
+        public static final int layo_search_space_button=0x7f0a001e;
+        public static final int layo_search_tv_capacity=0x7f0a0016;
+        public static final int layo_upcoming_et_filter=0x7f0a0022;
+        public static final int layo_upcoming_lv_options=0x7f0a0023;
+        public static final int layo_upcoming_search_et_search=0x7f0a002b;
+        public static final int pager=0x7f0a0006;
+        public static final int shape_my=0x7f0a002c;
     }
     public static final class layout {
         public static final int layo_login=0x7f030000;
         public static final int layo_main=0x7f030001;
         public static final int layo_main_column=0x7f030002;
         public static final int layo_main_tabs_container=0x7f030003;
-        public static final int layo_qrscan=0x7f030004;
-        public static final int layo_room_detail=0x7f030005;
-        public static final int layo_search=0x7f030006;
-        public static final int layo_search_list_item=0x7f030007;
-        public static final int layo_upcoming=0x7f030008;
-        public static final int layo_upcoming_list_item=0x7f030009;
-        public static final int layo_upcoming_search=0x7f03000a;
+        public static final int layo_qr_scanner=0x7f030004;
+        public static final int layo_qr_scanner_overlap_controls=0x7f030005;
+        public static final int layo_qrscan=0x7f030006;
+        public static final int layo_room_detail=0x7f030007;
+        public static final int layo_search=0x7f030008;
+        public static final int layo_search_list_item=0x7f030009;
+        public static final int layo_upcoming=0x7f03000a;
+        public static final int layo_upcoming_list_item=0x7f03000b;
+        public static final int layo_upcoming_search=0x7f03000c;
     }
     public static final class menu {
-        public static final int login=0x7f070000;
-        public static final int main=0x7f070001;
-        public static final int take_picture=0x7f070002;
+        public static final int login=0x7f090000;
+        public static final int main=0x7f090001;
+        public static final int take_picture=0x7f090002;
+    }
+    public static final class raw {
+        public static final int beep=0x7f040000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int date=0x7f050003;
-        public static final int hello_world=0x7f05000c;
-        public static final int lector_nfc=0x7f050007;
-        public static final int lector_qr=0x7f050006;
-        public static final int reservar_sala=0x7f050005;
-        public static final int room_address=0x7f050002;
-        public static final int scan_qr=0x7f050009;
-        public static final int search=0x7f05000a;
-        public static final int time=0x7f050004;
-        public static final int title_activity_login=0x7f05000d;
-        public static final int title_activity_take_picture=0x7f05000b;
-        public static final int upcoming=0x7f050008;
+        public static final int action_settings=0x7f070001;
+        public static final int app_name=0x7f070000;
+        public static final int date=0x7f070003;
+        public static final int hello_world=0x7f07000d;
+        public static final int lector_nfc=0x7f070007;
+        public static final int lector_qr=0x7f070006;
+        public static final int reservar_sala=0x7f070005;
+        public static final int room_address=0x7f070002;
+        public static final int scan_qr=0x7f070009;
+        public static final int search=0x7f07000a;
+        public static final int time=0x7f070004;
+        public static final int title_activity_ScanQR=0x7f07000c;
+        public static final int title_activity_login=0x7f07000e;
+        public static final int title_activity_take_picture=0x7f07000b;
+        public static final int upcoming=0x7f070008;
     }
     public static final class style {
-        public static final int ActionBar_Solid_Mbrstheme=0x7f060003;
-        public static final int ActionBar_Transparent_Mbrstheme=0x7f060004;
-        public static final int ActionBarTabStyle_Mbrstheme=0x7f060007;
-        public static final int ActionButton_CloseMode_Mbrstheme=0x7f06000a;
+        public static final int ActionBar_Solid_Mbrstheme=0x7f080003;
+        public static final int ActionBar_Transparent_Mbrstheme=0x7f080004;
+        public static final int ActionBarTabStyle_Mbrstheme=0x7f080007;
+        public static final int ActionButton_CloseMode_Mbrstheme=0x7f08000a;
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -184,18 +213,18 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int DropDownListView_Mbrstheme=0x7f060006;
-        public static final int DropDownNav_Mbrstheme=0x7f060008;
-        public static final int PopupMenu_Mbrstheme=0x7f060005;
-        public static final int ProgressBar_Mbrstheme=0x7f060009;
-        public static final int Theme_Mbrstheme=0x7f060002;
+        public static final int AppTheme=0x7f080001;
+        public static final int DropDownListView_Mbrstheme=0x7f080006;
+        public static final int DropDownNav_Mbrstheme=0x7f080008;
+        public static final int PopupMenu_Mbrstheme=0x7f080005;
+        public static final int ProgressBar_Mbrstheme=0x7f080009;
+        public static final int Theme_Mbrstheme=0x7f080002;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
-        public static final int Theme_Mbrstheme_Widget=0x7f06000b;
+        public static final int Theme_Mbrstheme_Widget=0x7f08000b;
     }
 }

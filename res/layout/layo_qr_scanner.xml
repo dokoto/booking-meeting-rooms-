@@ -1,0 +1,17 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QRScanner" >
+
+    <SurfaceView
+        android:id="@+id/layo_qr_scanner_camerapreview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <com.stratesys.qr.CamSurfaceLayer
+        android:id="@+id/layo_qr_scanner_sf_viewfinder_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</RelativeLayout>
