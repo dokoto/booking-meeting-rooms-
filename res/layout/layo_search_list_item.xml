@@ -15,9 +15,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="Wi-Fi" />
+        android:text="@string/text_wi_fi" />
 
     <CheckBox
         android:id="@+id/layo_search_list_item_cb_selected"

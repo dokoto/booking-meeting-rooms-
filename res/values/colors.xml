@@ -11,4 +11,18 @@
   <color name="transparent">#00000000</color>
   <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
   <color name="viewfinder_mask">#60000000</color>
+  
+  
+  <color name="global_text_edittext">#89878A</color>
+  <color name="global_text_textview_dark">#393A3B</color>
+  <color name="global_text_textview_light">#89878A</color>
+  <color name="global_text_botton">#FFFFFF</color>
+  
+  <color name="global_listview_divisor">#FFFFFF</color>
+  <color name="global_background">#E5E3E6</color>
+  <color name="global_surround_background">#393A3B</color>  
+  <color name="global_border_light">#E5E3E6</color>
+  <color name="global_background_light">#FFFFFF</color>
+  <color name="global_background_dark">#393A3B</color>   
+  
 </resources>

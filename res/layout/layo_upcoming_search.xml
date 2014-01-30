@@ -10,33 +10,10 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
     	android:lines="1"
-    	android:textColor="#89878A"
+    	android:textColor="@color/global_text_edittext"
         android:textStyle="bold"
-        android:hint="Search.."
+        android:hint="@string/search"
         android:ems="10" >       
     </EditText>
-
-    <!--
-<EditText
-        android:id="@+id/layo_upcoming_search_et_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/layo_upcoming_search_bt_search"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
     
-    <Button
-        android:id="@+id/layo_upcoming_search_bt_search"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/layo_upcoming_search_et_search"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/style_button"
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:text="Search" />
-    -->
-
 </RelativeLayout>

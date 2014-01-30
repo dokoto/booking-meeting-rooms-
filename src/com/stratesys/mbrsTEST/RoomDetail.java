@@ -1,61 +1,56 @@
 package com.stratesys.mbrsTEST;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import com.stratesys.mbrsTEST.maps.MapDisplay;
+
+import rest.RoomSpecs;
+import rest.SAP.Query;
+import rest.SAP.Query.CallBackResultQuery02;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RoomDetail extends Activity
 {
-	private ListView lv_features_list;
-	private Adapter_FeatureList Adapter;
 	private ImageButton ib_go_to_map;
 	private TextView tv_address;
 	private Geocoder geocoder;
-
-	private class Adapter_row
-	{
-		public Adapter_row(String feature, boolean selected)
-		{
-			this.feature = feature;
-			this.selected = selected;
-		}
-
-		public String feature;
-		public boolean selected;
-	}
+	private LinearLayout ll_features_list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layo_room_detail);
+		LoadVars();
 		LoadFeatures();
 		LoadEvents();
 	}
 
-	private void LoadEvents()
+	private void LoadVars()
 	{
 		ib_go_to_map = (ImageButton) findViewById(R.id.layo_room_detail_ib_go_to_map);
-		ib_go_to_map.setOnClickListener(new OnClickListener() {
+		tv_address = (TextView) findViewById(R.id.layo_room_detail_tv_address);
+		ll_features_list = (LinearLayout) findViewById(R.id.layo_room_detail_ll_room_features);
+	}
+
+	private void LoadEvents()
+	{
+
+		ib_go_to_map.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
@@ -67,8 +62,9 @@ public class RoomDetail extends Activity
 					if (locationList != null)
 					{
 						Address address = locationList.get(0);
-						String uri = String.format(Locale.getDefault(), "geo:%f,%f", address.getLatitude(), address.getLongitude());
-						Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+						Intent intent = new Intent(getBaseContext(), MapDisplay.class);
+						intent.putExtra("lat", address.getLatitude());
+						intent.putExtra("lng", address.getLongitude());
 						startActivity(intent);
 					}
 				} catch (IOException e)
@@ -76,79 +72,32 @@ public class RoomDetail extends Activity
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}});
+			}
+		});
 	}
-	
+
+
 	private void LoadFeatures()
 	{
 		geocoder = new Geocoder(this, Locale.getDefault());
-		tv_address = (TextView) findViewById(R.id.layo_room_detail_tv_address);
-		lv_features_list = (ListView) findViewById(R.id.layo_room_detail_lv_room_features);		
-		final ArrayList<Adapter_row> adapter_row = new ArrayList<Adapter_row>();
-		adapter_row.add(new Adapter_row("Wi-Fi", false));
-		adapter_row.add(new Adapter_row("Conference Call", false));
-		adapter_row.add(new Adapter_row("Flip Chart", false));
-		adapter_row.add(new Adapter_row("White Board", false));
-		adapter_row.add(new Adapter_row("Projector", false));
-		adapter_row.add(new Adapter_row("Catering", false));
-		adapter_row.add(new Adapter_row("Coffee Machine", false));
-		Adapter = new Adapter_FeatureList(this, adapter_row);
-		lv_features_list.setAdapter(Adapter);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	private static class ViewHolder
-	{
-		public TextView tv_feature;
-		public CheckBox cb_selected;
-	}
-
-	public class Adapter_FeatureList extends ArrayAdapter<Adapter_row>
-	{
-		public final Context ContextAdapter;
-		public ArrayList<Adapter_row> Rows;
-		ViewHolder holder;
-
-		public Adapter_FeatureList(Context context, ArrayList<Adapter_row> rows)
+		Query q = new Query();
+		q.get_room_services(new CallBackResultQuery02()
 		{
-			super(context, R.layout.layo_room_detail, rows);
-			this.ContextAdapter = context;
-			this.Rows = rows;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
-			View rowView = convertView;
-			if (position > Rows.size() - 1)
-				return rowView;
-			if (rowView == null)
+			@Override
+			public void onQueryHasFinished(RoomSpecs services)
 			{
-				LayoutInflater inflater = (LayoutInflater) ContextAdapter.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				rowView = inflater.inflate(R.layout.layo_search_list_item, parent, false);
-				holder = new ViewHolder();
-				holder.tv_feature = (TextView) rowView.findViewById(R.id.layo_search_list_item_tv_feature);
-				holder.cb_selected = (CheckBox) rowView.findViewById(R.id.layo_search_list_item_cb_selected);
-
-				rowView.setTag(holder);
+				int i = 0;
+				ll_features_list.removeAllViews();
+				for (Map.Entry<String, String> entry : services.GetDescriptions().entrySet())
+				{
+					View v_features = View.inflate(RoomDetail.this, R.layout.layo_search_list_item, null);
+					TextView tv_feature = (TextView) v_features.findViewById(R.id.layo_search_list_item_tv_feature);
+					tv_feature.setText(entry.getValue());
+					LinearLayout ll = new LinearLayout(RoomDetail.this);
+					ll.addView(v_features);
+					ll_features_list.addView(ll, i++);
+				}
 			}
-
-			holder = (ViewHolder) rowView.getTag();
-			if (Rows.size() > 0)
-			{
-				holder.tv_feature.setText(Rows.get(position).feature);
-				holder.cb_selected.setChecked(Rows.get(position).selected);
-				holder.cb_selected.setEnabled(false);
-			}
-			notifyDataSetChanged();
-			return rowView;
-		}
+		});
 	}
 }

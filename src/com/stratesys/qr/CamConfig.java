@@ -3,6 +3,7 @@ package com.stratesys.qr;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -14,13 +15,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
 /**
  * A class which deals with reading, parsing, and setting the camera parameters
  * which are used to configure the camera hardware.
  */
 final class CamConfig
 {
-	public enum FrontLightMode {
+	public enum FrontLightMode
+	{
 
 		/** Always on. */
 		ON,
@@ -53,13 +56,18 @@ final class CamConfig
 	// This prevents
 	// accidental selection of very low resolution on some devices.
 	private static final int MIN_PREVIEW_PIXELS = 480 * 320; // normal screen
-	// private static final float MAX_EXPOSURE_COMPENSATION = 1.5f;
-	// private static final float MIN_EXPOSURE_COMPENSATION = 0.0f;
 	private static final double MAX_ASPECT_DISTORTION = 0.15;
+	private static final int MIN_FRAME_WIDTH = 240;
+	private static final int MIN_FRAME_HEIGHT = 240;
+	private static final int MAX_FRAME_WIDTH = 1200; // = 5/8 * 1920
+	private static final int MAX_FRAME_HEIGHT = 675; // = 5/8 * 1080
 
 	private final Context context;
 	private Point screenResolution;
 	private Point cameraResolution;
+	private Rect framingRectInPreview;
+	private Rect framingRect;
+	private Camera camera;
 
 	CamConfig(Context context)
 	{
@@ -69,12 +77,10 @@ final class CamConfig
 	/**
 	 * Reads, one time, values from the camera that are needed by the app.
 	 */
-	void initFromCameraParameters()
-	{		
-		Camera camera = Camera.open();		
-		Camera.Parameters parameters = camera.getParameters();
-		camera.stopPreview();
-		camera.release();
+	void initFromCameraParameters(Camera camera)
+	{
+		this.camera = camera;
+		Camera.Parameters parameters = this.camera.getParameters();
 		WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 		Display display = manager.getDefaultDisplay();
 		Point theScreenResolution = new Point();
@@ -121,7 +127,8 @@ final class CamConfig
 		// Maybe selected auto-focus but not available, so fall through here:
 		if (!safeMode && focusMode == null)
 		{
-			focusMode = findSettableValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_MACRO, Camera.Parameters.FOCUS_MODE_EDOF);
+			focusMode = findSettableValue(parameters.getSupportedFocusModes(), Camera.Parameters.FOCUS_MODE_MACRO,
+					Camera.Parameters.FOCUS_MODE_EDOF);
 		}
 		if (focusMode != null)
 		{
@@ -144,8 +151,8 @@ final class CamConfig
 		Camera.Size afterSize = afterParameters.getPreviewSize();
 		if (afterSize != null && (cameraResolution.x != afterSize.width || cameraResolution.y != afterSize.height))
 		{
-			Log.w(TAG, "Camera said it supported preview size " + cameraResolution.x + 'x' + cameraResolution.y + ", but after setting it, preview size is "
-					+ afterSize.width + 'x' + afterSize.height);
+			Log.w(TAG, "Camera said it supported preview size " + cameraResolution.x + 'x' + cameraResolution.y
+					+ ", but after setting it, preview size is " + afterSize.width + 'x' + afterSize.height);
 			cameraResolution.x = afterSize.width;
 			cameraResolution.y = afterSize.height;
 		}
@@ -169,7 +176,8 @@ final class CamConfig
 			if (parameters != null)
 			{
 				String flashMode = camera.getParameters().getFlashMode();
-				return flashMode != null && (Camera.Parameters.FLASH_MODE_ON.equals(flashMode) || Camera.Parameters.FLASH_MODE_TORCH.equals(flashMode));
+				return flashMode != null
+						&& (Camera.Parameters.FLASH_MODE_ON.equals(flashMode) || Camera.Parameters.FLASH_MODE_TORCH.equals(flashMode));
 			}
 		}
 		return false;
@@ -193,7 +201,8 @@ final class CamConfig
 		String flashMode;
 		if (newSetting)
 		{
-			flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_TORCH, Camera.Parameters.FLASH_MODE_ON);
+			flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_TORCH,
+					Camera.Parameters.FLASH_MODE_ON);
 		} else
 		{
 			flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_OFF);
@@ -317,6 +326,72 @@ final class CamConfig
 		}
 		Log.i(TAG, "Settable value: " + result);
 		return result;
+	}
+
+	public synchronized Rect getFramingRect()
+	{
+		if (framingRect == null)
+		{
+			if (camera == null)
+			{
+				return null;
+			}
+			Point screenResolution = this.getScreenResolution();
+			if (screenResolution == null)
+			{
+				// Called early, before init even finished
+				return null;
+			}
+
+			int width = findDesiredDimensionInRange(screenResolution.x, MIN_FRAME_WIDTH, MAX_FRAME_WIDTH);
+			int height = findDesiredDimensionInRange(screenResolution.y, MIN_FRAME_HEIGHT, MAX_FRAME_HEIGHT);
+
+			int leftOffset = (screenResolution.x - width) / 2;
+			int topOffset = (screenResolution.y - height) / 2;
+			framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
+			Log.d(TAG, "Calculated framing rect: " + framingRect);
+		}
+		return framingRect;
+	}
+
+	private static int findDesiredDimensionInRange(int resolution, int hardMin, int hardMax)
+	{
+		int dim = 5 * resolution / 8; // Target 5/8 of each dimension
+		if (dim < hardMin)
+		{
+			return hardMin;
+		}
+		if (dim > hardMax)
+		{
+			return hardMax;
+		}
+		return dim;
+	}
+
+	public synchronized Rect getFramingRectInPreview()
+	{
+		if (framingRectInPreview == null)
+		{
+			Rect framingRect = getFramingRect();
+			if (framingRect == null)
+			{
+				return null;
+			}
+			Rect rect = new Rect(framingRect);
+			Point cameraResolution = this.getCameraResolution();
+			Point screenResolution = this.getScreenResolution();
+			if (cameraResolution == null || screenResolution == null)
+			{
+				// Called early, before init even finished
+				return null;
+			}
+			rect.left = rect.left * cameraResolution.x / screenResolution.x;
+			rect.right = rect.right * cameraResolution.x / screenResolution.x;
+			rect.top = rect.top * cameraResolution.y / screenResolution.y;
+			rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
+			framingRectInPreview = rect;
+		}
+		return framingRectInPreview;
 	}
 
 }

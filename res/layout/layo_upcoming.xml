@@ -14,7 +14,7 @@
         android:paddingLeft="15dp"
         android:ems="10"
         android:background="@drawable/style_border_edittext"
-        android:hint="Searching"        
+        android:hint="@string/search"        
         android:inputType="text" />
     
     <ListView
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layo_upcoming_et_filter"
-        android:divider="#FFFFFF"
+        android:divider="@color/global_listview_divisor"
         android:dividerHeight="1sp" 
         android:background="@drawable/style_rounded_corners"
         android:layout_margin="10dp"

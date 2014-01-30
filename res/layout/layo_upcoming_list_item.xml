@@ -15,9 +15,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="Tomorrow" />
+        android:text="@string/text_tomorrow" />
 
 
     <TextView
@@ -27,9 +27,9 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/layo_main_list_item_tv_date"
         android:layout_marginTop="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text=" - " />
+        android:text="@string/text_dash" />
 
     <TextView
         android:id="@+id/layo_main_list_item_tv_subjet"
@@ -38,9 +38,9 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/layo_main_list_item_tv_date_sep"
         android:layout_marginTop="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="Board Meeting" />
+        android:text="@string/text_board_meeting" />
        
     <TextView
         android:id="@+id/layo_main_list_item_tv_time"
@@ -50,9 +50,9 @@
         android:layout_below="@+id/layo_main_list_item_tv_date"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="15:30" />
+        android:text="@string/text_15_30" />
 
     <TextView
         android:id="@+id/layo_main_list_item_tv_time_sep"
@@ -62,9 +62,9 @@
         android:layout_toRightOf="@+id/layo_main_list_item_tv_time"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="\@" />
+        android:text="@string/text_dash" />
 
     <TextView
         android:id="@+id/layo_main_list_item_tv_room"
@@ -75,12 +75,12 @@
         android:layout_toRightOf="@+id/layo_main_list_item_tv_time_sep"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="#89878A"
+        android:textColor="@color/global_text_textview_light"
         android:textStyle="bold"
-        android:text="Sapphire Room" />
+        android:text="@string/text_sapphire_room" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/layo_main_list_item_iv_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

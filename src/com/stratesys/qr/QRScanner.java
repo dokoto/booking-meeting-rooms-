@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
 import com.google.zxing.FormatException;
@@ -33,6 +34,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -42,13 +44,15 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QRScanner extends Activity implements SurfaceHolder.Callback, SensorEventListener
 {
 
 	private Camera camera;
-	private Camera.Parameters mParameters;
 	private SurfaceView surfaceView;
 	private CamSurfaceLayer viewfinder_view;
 	private SurfaceHolder surfaceHolder;
@@ -59,7 +63,6 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 	private BeepManager beepManager;
 	private Button rescanQR;
 	private boolean ContinueScanning = true;
-
 	private boolean mAutoFocus = true;
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
@@ -67,6 +70,11 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 	private float mLastX = 0;
 	private float mLastY = 0;
 	private float mLastZ = 0;
+
+	private ImageButton TestShot;
+	private ImageView TestCapuredImage;
+	private boolean TestModeActive = false;
+	private CamConfig configCamManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -92,22 +100,54 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+		configCamManager = new CamConfig(getBaseContext());
+		viewfinder_view.setCamConfig(configCamManager);
+
 		result_text_capture = (TextView) viewControl.findViewById(R.id.layo_qr_scanner_overlap_controls_tv_result_text_capture);
 		rescanQR = (Button) viewControl.findViewById(R.id.layo_qr_scanner_overlap_controls_bt_rescan);
-		rescanQR.setOnClickListener(new OnClickListener() {
+		rescanQR.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
 			public void onClick(View arg0)
 			{
-				ContinueScanning = true;
-				result_text_capture.setText("");
-				result_text_capture.setVisibility(View.GONE);
-				rescanQR.setVisibility(View.GONE);
-				
-			}});
-		
+				if (TestModeActive)
+				{
+					rescanQR.setVisibility(View.GONE);
+					TestCapuredImage.setVisibility(View.GONE);
+				} else
+				{
+					ContinueScanning = true;
+					result_text_capture.setText("");
+					result_text_capture.setVisibility(View.GONE);
+					rescanQR.setVisibility(View.GONE);
+				}
+
+			}
+		});
+
 		beepManager = new BeepManager(this);
-		
+
+		/*
+		 * MODO TEST
+		 */
+		if (TestModeActive)
+		{
+			Toast.makeText(getApplicationContext(), "TEST MODE ACTIVE", Toast.LENGTH_SHORT).show();
+			TestCapuredImage = (ImageView) viewControl.findViewById(R.id.layo_qr_scanner_overlap_controls_iv_test_img_cap);
+			TestShot = (ImageButton) viewControl.findViewById(R.id.layo_qr_scanner_overlap_controls_ib_test_shot);
+			TestShot.setOnClickListener(new OnClickListener()
+			{
+
+				@Override
+				public void onClick(View arg0)
+				{
+					TestCapuredImage.setImageBitmap(getPicOnLive(mBuffer, configCamManager.getFramingRectInPreview() ));
+					rescanQR.setVisibility(View.VISIBLE);
+					TestCapuredImage.setVisibility(View.VISIBLE);
+				}
+			});
+		}
 	}
 
 	@Override
@@ -201,7 +241,7 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 		{
 			Result result = reader.decode(bitmap);
 			beepManager.playBeepSoundAndVibrate();
-			result_text_capture.setText(result.getText());			
+			result_text_capture.setText(result.getText());
 			result_text_capture.setVisibility(View.VISIBLE);
 			rescanQR.setVisibility(View.VISIBLE);
 			ContinueScanning = false;
@@ -209,7 +249,7 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 		} catch (NotFoundException e)
 		{
 			result_text_capture.setVisibility(View.GONE);
-			e.printStackTrace();
+			Log.w("QR DECODE", "I can't decode image, no valid QR found.");
 		} catch (ChecksumException e)
 		{
 			result_text_capture.setVisibility(View.GONE);
@@ -223,7 +263,7 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3)
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
 	{
 		if (previewing)
 		{
@@ -235,7 +275,7 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 		{
 			try
 			{
-				camera.setPreviewDisplay(surfaceHolder);
+				camera.setPreviewDisplay(surfaceHolder);				
 				camera.startPreview();
 				previewing = true;
 			} catch (IOException e)
@@ -252,9 +292,9 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 		try
 		{
 			camera = Camera.open();
+			configCamManager.initFromCameraParameters(camera);
+			configCamManager.setDesiredCameraParameters(camera, true);
 
-			if (mParameters == null)
-				mParameters = camera.getParameters();
 			updateBufferSize();
 			camera.addCallbackBuffer(mBuffer);
 			camera.setPreviewCallbackWithBuffer(new PreviewCallback()
@@ -266,8 +306,11 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 					{
 						camera.addCallbackBuffer(mBuffer);
 						// Experimental
-						if (ContinueScanning)													
-							decode(getPicOnLive(mBuffer, viewfinder_view.getFrame()));						
+						if (TestModeActive == false)
+						{
+							if (ContinueScanning)
+								decode( getPicOnLive(mBuffer, configCamManager.getFramingRectInPreview() ) );
+						}
 					}
 				}
 			});
@@ -292,47 +335,22 @@ public class QRScanner extends Activity implements SurfaceHolder.Callback, Senso
 	{
 		mBuffer = null;
 		System.gc();
-		// prepare a buffer for copying preview data to
 		int h = camera.getParameters().getPreviewSize().height;
 		int w = camera.getParameters().getPreviewSize().width;
 		int bitsPerPixel = ImageFormat.getBitsPerPixel(camera.getParameters().getPreviewFormat());
 		mBuffer = new byte[w * h * bitsPerPixel / 8];
 	}
 
-	/*
-	public Bitmap getPic(Rect frame)
-	{
-		System.gc();
-		Bitmap b = null;
-		Size s = mParameters.getPreviewSize();
-
-		YuvImage yuvimage = new YuvImage(mBuffer, ImageFormat.NV21, s.width, s.height, null);
-
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		yuvimage.compressToJpeg(frame, 100, outStream); // make
-														// JPG
-		b = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.size());
-
-		Matrix matrix = new Matrix();
-		matrix.postRotate(90);
-		yuvimage = null;
-		outStream = null;
-		System.gc();
-		return Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
-
-	}
-*/
 	public Bitmap getPicOnLive(byte[] buffer, Rect frame)
 	{
 		System.gc();
 		Bitmap b = null;
-		Size s = mParameters.getPreviewSize();
-
+		Size s = camera.getParameters().getPreviewSize();
+		
 		YuvImage yuvimage = new YuvImage(buffer, ImageFormat.NV21, s.width, s.height, null);
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		yuvimage.compressToJpeg(frame, 100, outStream); // make
-														// JPG
+		yuvimage.compressToJpeg(frame, 100, outStream);
 		b = BitmapFactory.decodeByteArray(outStream.toByteArray(), 0, outStream.size());
 
 		Matrix matrix = new Matrix();

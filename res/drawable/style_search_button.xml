@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <shape android:shape="rectangle" >
-        <solid android:color="#393A3B" />
-        <corners android:radius="5dp" />
-    </shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-</inset>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/global_text_textview_light" />
+
+            <corners android:radius="5dp" />
+        </shape>
+        
+    </item>
+    <item><shape android:shape="rectangle">
+            <solid android:color="@color/global_background_dark" />
+
+            <corners android:radius="5dp" />
+        </shape></item>
+
+</selector>

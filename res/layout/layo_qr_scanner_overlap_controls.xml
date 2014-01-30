@@ -11,8 +11,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:textSize="20sp"
         android:textColor="#30B065"
+        android:textSize="20sp"
         android:visibility="gone" />
 
     <Button
@@ -21,7 +21,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:visibility="gone"
-        android:text="Re-Scan QR" />
+        android:text="@string/re_scan_qr"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/layo_qr_scanner_overlap_controls_iv_test_img_cap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/ic_launcher"        
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/layo_qr_scanner_overlap_controls_ib_test_shot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:src="@drawable/blue_colour_circle" />
 
 </RelativeLayout>

@@ -1,123 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/layo_search_tv_capacity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Capacity: 2"
-        android:textColor="#89878A"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <SeekBar
-        android:id="@+id/layo_search_sb_capacity"
+    <RelativeLayout
+        android:id="@+id/layo_search_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layo_search_tv_capacity"
-        android:layout_marginLeft="30dp" />
+        android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/layo_search_et_booking_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layo_search_sb_capacity"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/layo_search_ib_booking_date"
-        android:background="@drawable/style_border_edittext"
-        android:ems="10"
-        android:hint="Booking Date"
-        android:inputType="date"
-        android:paddingLeft="15dp"
-        android:textColor="#89878A"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/layo_search_ib_booking_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/layo_search_et_booking_date"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/layo_search_sb_capacity"
-        android:background="@null"
-        android:src="@drawable/ic_menu_my_calendar" />
-
-    <EditText
-        android:id="@+id/layo_search_et_booking_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layo_search_et_booking_date"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/layo_search_ib_booking_time"
-        android:background="@drawable/style_border_edittext"
-        android:ems="10"
-        android:hint="Booking Time"
-        android:inputType="time"
-        android:paddingLeft="15dp"
-        android:textColor="#89878A"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:id="@+id/layo_search_ib_booking_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/layo_search_et_booking_time"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/layo_search_ib_booking_date"
-        android:layout_marginTop="10dp"
-        android:background="@null"
-        android:src="@drawable/ic_menu_recent_history" />
-
-    <ListView
-        android:id="@+id/layo_search_lv_room_features"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/layo_search_ll_buttons"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/layo_search_et_booking_time"
-        android:layout_margin="10dp"
-        android:background="@drawable/style_rounded_corners"
-        android:divider="#FFFFFF"
-        android:dividerHeight="1sp"
-        android:fadeScrollbars="false" >
-    </ListView>
-
-    <LinearLayout
-        android:id="@+id/layo_search_ll_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:orientation="horizontal" >
-
-        <Space
-            android:id="@+id/layo_search_space_button"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/layo_search_tv_capacity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".50" >
-        </Space>
-
-        <Button
-            android:id="@+id/layo_search_bt_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".50"
-            android:background="@drawable/style_search_button"
-            android:drawablePadding="5dp"
-            android:drawableStart="@drawable/ic_menu_search"
-            android:text="Search"
-            android:textColor="#FFFFFF"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/text_capacity"
+            android:textColor="@color/global_text_textview_light"
+            android:textSize="16sp"
             android:textStyle="bold" />
-    </LinearLayout>
 
-</RelativeLayout>
+        <SeekBar
+            android:id="@+id/layo_search_sb_capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layo_search_tv_capacity"
+            android:layout_marginLeft="30dp" />
+
+        <EditText
+            android:id="@+id/layo_search_et_booking_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layo_search_sb_capacity"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/layo_search_ib_booking_date"
+            android:background="@drawable/style_border_edittext"
+            android:ems="10"
+            android:hint="@string/text_booking_date"
+            android:inputType="date"
+            android:paddingLeft="15dp"
+            android:textColor="@color/global_text_edittext"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/layo_search_ib_booking_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/layo_search_et_booking_date"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/layo_search_sb_capacity"
+            android:background="@null"
+            android:src="@drawable/ic_menu_my_calendar" />
+
+        <EditText
+            android:id="@+id/layo_search_et_booking_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layo_search_et_booking_date"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/layo_search_ib_booking_time"
+            android:background="@drawable/style_border_edittext"
+            android:ems="10"
+            android:hint="@string/text_booking_time"
+            android:inputType="time"
+            android:paddingLeft="15dp"
+            android:textColor="@color/global_text_edittext"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/layo_search_ib_booking_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/layo_search_et_booking_time"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/layo_search_ib_booking_date"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:src="@drawable/ic_menu_recent_history" />
+
+        <LinearLayout
+            android:id="@+id/layo_search_ll_room_features"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/layo_search_et_booking_time"
+            android:layout_margin="10dp"
+            android:background="@drawable/style_rounded_corners"
+            android:divider="@color/global_listview_divisor"
+            android:dividerHeight="1sp"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layo_search_ll_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"     
+            android:layout_below="@+id/layo_search_ll_room_features"    
+            android:gravity="bottom"   
+            android:layout_margin="10dp"            
+            android:orientation="horizontal" >
+
+            <Space
+                android:id="@+id/layo_search_space_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50" >
+            </Space>
+
+            <Button
+                android:id="@+id/layo_search_bt_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:background="@drawable/style_search_button"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_menu_search"
+                android:text="@string/search"
+                android:textColor="@color/global_text_botton"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>
