@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ListView;
 
 public class Upcomming extends Fragment
 {

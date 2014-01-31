@@ -3,13 +3,11 @@ package com.stratesys.mbrsTEST;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import com.stratesys.mbrsTEST.maps.MapDisplay;
 
-import rest.RoomSpecs;
-import rest.SAP.Query;
-import rest.SAP.Query.CallBackResultQuery02;
+import rest.sap.methods.AvailableServices;
+import rest.sap.structs.RoomSpecs;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -80,19 +78,19 @@ public class RoomDetail extends Activity
 	private void LoadFeatures()
 	{
 		geocoder = new Geocoder(this, Locale.getDefault());
-		Query q = new Query();
-		q.get_room_services(new CallBackResultQuery02()
+		AvailableServices QueryServices = new AvailableServices();		
+		QueryServices.get(new AvailableServices.CallBackResultQuery()
 		{
 			@Override
-			public void onQueryHasFinished(RoomSpecs services)
+			public void onQueryHasFinished(RoomSpecs[] services)
 			{
 				int i = 0;
 				ll_features_list.removeAllViews();
-				for (Map.Entry<String, String> entry : services.GetDescriptions().entrySet())
+				for (RoomSpecs service : services)
 				{
 					View v_features = View.inflate(RoomDetail.this, R.layout.layo_search_list_item, null);
 					TextView tv_feature = (TextView) v_features.findViewById(R.id.layo_search_list_item_tv_feature);
-					tv_feature.setText(entry.getValue());
+					tv_feature.setText(service.description);
 					LinearLayout ll = new LinearLayout(RoomDetail.this);
 					ll.addView(v_features);
 					ll_features_list.addView(ll, i++);

@@ -1,4 +1,4 @@
-package rest;
+package rest.sap.structs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,14 +27,13 @@ public class Room implements JSONable
 	{
 		ROOMNR, NAME, SERVICES, LOCATION
 	};
-	
+
 	public Room()
 	{
 		services = new RoomSpecs();
 		location = new RoomAddrs();
 	}
-	
-	
+
 	@Override
 	public JSONObject toJSONObject()
 	{
@@ -70,14 +69,6 @@ public class Room implements JSONable
 			return null;
 		}
 		return this;
-	}
-
-
-	@Override
-	public Object fromJSONObject(JSONArray src)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

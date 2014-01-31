@@ -1,13 +1,12 @@
 package com.stratesys.mbrsTEST;
 
-import java.util.Map;
-import rest.Room;
-import rest.RoomAddrs;
-import rest.RoomFilter;
-import rest.RoomSpecs;
-import rest.SAP.Query;
-import rest.SAP.Query.CallBackResultQuery01;
-import rest.SAP.Query.CallBackResultQuery02;
+import java.util.Date;
+
+import rest.filters.AvailableRoomsFilter;
+import rest.sap.methods.AvailableRooms;
+import rest.sap.methods.AvailableServices;
+import rest.sap.structs.Room;
+import rest.sap.structs.RoomSpecs;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.os.Bundle;
@@ -47,8 +46,8 @@ public class Search extends Fragment
 	}
 
 	private View InitVars(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{		
-	
+	{
+
 		View rootView = inflater.inflate(R.layout.layo_search, container, false);
 		bt_search = (Button) rootView.findViewById(R.id.layo_search_bt_search);
 		ll_features_list = (LinearLayout) rootView.findViewById(R.id.layo_search_ll_room_features);
@@ -58,11 +57,10 @@ public class Search extends Fragment
 		et_booking_date = (EditText) rootView.findViewById(R.id.layo_search_et_booking_date);
 		ib_booking_time = (ImageButton) rootView.findViewById(R.id.layo_search_ib_booking_time);
 		et_booking_time = (EditText) rootView.findViewById(R.id.layo_search_et_booking_time);
-			
+
 		sb_capacity.setMax(25);
 		sb_capacity.setProgress(2);
-				
-		
+
 		getServicesDescriptions(rootView, inflater, container);
 
 		return rootView;
@@ -146,58 +144,61 @@ public class Search extends Fragment
 
 	private void getServicesDescriptions(final View rootView, final LayoutInflater inflater, final ViewGroup container)
 	{
-		Query q = new Query();
-		q.get_room_services(new CallBackResultQuery02()
+		AvailableServices QueryServices = new AvailableServices();
+		QueryServices.get(new AvailableServices.CallBackResultQuery()
 		{
 			@Override
-			public void onQueryHasFinished(RoomSpecs services)
-			{							
-				int i = 0;				
-				for (Map.Entry<String, String> entry : services.GetDescriptions().entrySet())
+			public void onQueryHasFinished(RoomSpecs[] services)
+			{
+				int i = 0;
+				for (RoomSpecs service : services)
 				{
-					View v_features  = inflater.inflate(R.layout.layo_search_list_item, container, false);									
+					View v_features = inflater.inflate(R.layout.layo_search_list_item, container, false);
 					TextView tv_feature = (TextView) v_features.findViewById(R.id.layo_search_list_item_tv_feature);
-					tv_feature.setText(entry.getValue());	
+					tv_feature.setText(service.description);
 					LinearLayout ll_item = new LinearLayout(getActivity());
 					ll_item.addView(v_features);
 					ll_features_list.addView(ll_item, i++);
-				}			
+				}
 			}
 		});
 	}
 
 	private void executeSearch()
 	{
-		RoomSpecs services = new RoomSpecs();
-		services.Set("HAS_CONFCALL", true);
-		services.Set("HAS_VIDCALL", true);
-		services.Set("HAS_INTERNET", true);
-		services.Set("HAS_FLIPCHART", true);
-		services.Set("HAS_WHITEBOARD", true);
-
-		RoomAddrs location = new RoomAddrs();
-		location.country = "Spain";
-		location.city = "Madrid";
-		location.building = "Norte 2";
-		location.floor = "2º";
-		location.roomID = "201";
-
-		RoomFilter filter = new RoomFilter();
-		filter.beginDate = "20140101";
-		filter.endDate = "20150101";
-		filter.beginTime = "010000";
-		filter.endTime = "010000";
-		filter.services = services;
-		filter.location = location;
-
-		Query q = new Query();
-		q.get_available_meeting_rooms(filter, new CallBackResultQuery01()
+		try
 		{
-			@Override
-			public void onQueryHasFinished(Room[] rooms)
+			AvailableRoomsFilter filter = new AvailableRoomsFilter();
+
+			filter.interval.beginDate("01/01/2014");
+			filter.interval.endDate("01/01/2015");
+			filter.interval.beginTime("01:00:00");
+			filter.interval.endTime("01:00:00");
+
+			filter.location.country = "Spain";
+			filter.location.city = "Madrid";
+			filter.location.building = "Norte 2";
+			filter.location.floor = "2º";
+			filter.location.roomID = "201";
+
+			filter.services.set("HAS_CONFCALL", true);
+			filter.services.set("HAS_VIDCALL", true);
+			filter.services.set("HAS_INTERNET", true);
+			filter.services.set("HAS_FLIPCHART", true);
+			filter.services.set("HAS_WHITEBOARD", true);
+
+			AvailableRooms QueryAvailableRooms = new AvailableRooms();
+			QueryAvailableRooms.get(filter, new AvailableRooms.CallBackResultQuery()
 			{
-			}
-		});
+				@Override
+				public void onQueryHasFinished(Room[] rooms)
+				{
+				}
+			});
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 
 	}
 }

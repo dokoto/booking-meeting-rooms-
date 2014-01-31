@@ -27,5 +27,4 @@ public interface JSONable
 	 *             structure.
 	 */
 	Object fromJSONObject(final JSONObject src);
-	Object fromJSONObject(final JSONArray src);
 }

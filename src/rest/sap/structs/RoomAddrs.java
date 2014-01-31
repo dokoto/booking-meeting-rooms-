@@ -1,6 +1,5 @@
-package rest;
+package rest.sap.structs;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,10 +70,4 @@ public class RoomAddrs implements JSONable
 		return this;
 	}
 
-	@Override
-	public Object fromJSONObject(JSONArray src)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
