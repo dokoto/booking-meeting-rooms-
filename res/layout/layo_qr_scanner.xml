@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
-    <com.stratesys.qr.CamSurfaceLayer
+    <qr.CamSurfaceLayer
         android:id="@+id/layo_qr_scanner_sf_viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

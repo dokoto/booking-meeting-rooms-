@@ -31,7 +31,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Mbrstheme" >
         <activity
-            android:name="com.stratesys.mbrsTEST.Login"
+            android:name="logon.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,26 +40,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.stratesys.mbrsTEST.TakePicture"
+            android:name="tabs.TakePicture"
             android:label="@string/title_activity_take_picture" />
         <activity
-            android:name="com.stratesys.mbrsTEST.QRDecoder"
+            android:name="tabs.QRDecoder"
             android:label="@string/title_activity_ScanQR" />
         <activity
-            android:name="com.stratesys.mbrsTEST.QRDecoder2"
+            android:name="tabs.QRDecoder2"
             android:label="@string/title_activity_ScanQR" />
         <activity
-            android:name="com.stratesys.qr.QRScanner"
+            android:name="qr.QRScanner"
             android:label="@string/title_activity_ScanQR" />
         <activity
-            android:name="com.stratesys.mbrsTEST.MainContainer"
+            android:name="tabs.MainContainer"
             android:label="@string/app_name" />
         <activity
-            android:name="com.stratesys.mbrsTEST.maps.MapDisplay"
+            android:name="maps.MapDisplay"
             android:label="@string/title_map" />        
 
         <!-- created by str_mas at 2014-01-07 11:54:13 -->
-        <activity android:name=".RoomDetail" />
+        <activity android:name="tabs.RoomDetail" />
 
         <meta-data
             android:name="com.google.android.gms.version"
