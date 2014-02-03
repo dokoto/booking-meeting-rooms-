@@ -14,7 +14,7 @@ import rest.sap.structs.Room;
 import utils.json.Conversions;
 import android.os.AsyncTask;
 
-public final class AvailableRooms extends Query
+public final class AvailableRooms extends REST
 {
 	private static String QUERY_ID = "01"; 
 	/**

@@ -14,7 +14,7 @@ import rest.sap.structs.Reservations;
 import rest.sap.structs.Room;
 import utils.json.Conversions;
 
-public class ReservationHistory extends Query
+public class ReservationHistory extends REST
 {
 	private static String QUERY_ID = "03"; 
 	/**

@@ -2,13 +2,13 @@ package rest.sap.methods;
 
 import android.net.Uri;
 
-public abstract class Query
+public abstract class REST
 {
 	protected static final String HOST = "demo.stratesys-ts.com";
 	protected static final String PROTOCOL = "http";
 	protected static final int PORT = 8030;
 	protected static final String PATH_RESOURCE = "/prc62/roomreservation/%s/%s.%s";
-	//prtected static final String PATH_NO_RESOURCE = "/prc62/roomreservation/%s";
+	//protected static final String PATH_NO_RESOURCE = "/prc62/roomreservation/%s";
 	
 	protected static final String JSON_TAG_ROOMS = "rooms";
 	protected static final String JSON_TAG_RESERVATIONS = "reservations";
@@ -21,6 +21,8 @@ public abstract class Query
 	}
 	
 	protected void get() {}
+	protected void put() {}
+	protected void delete() {}
 
 	protected String BuildUriPOST(String rest_name, String query_id)
 	{
