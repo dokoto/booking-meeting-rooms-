@@ -32,7 +32,6 @@ public class ReservationHistory extends REST
 
 			AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>()
 			{
-
 				HttpClient httpclient = null;
 				HttpPost httppost = null;
 				HttpResponse response2level = null;

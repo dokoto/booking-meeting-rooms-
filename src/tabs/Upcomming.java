@@ -1,9 +1,14 @@
 package tabs;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
+import rest.filters.ReservationHistoryFilter;
+import rest.sap.methods.ReservationHistory;
+import rest.sap.structs.Reservations;
+import rest.sap.structs.Room;
 
 import com.stratesys.mbrsTEST.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +31,7 @@ public class Upcomming extends Fragment
 
 	private ListView lv_option_menu_list;
 	private Adapter_BookingList Adapter;
+	private ArrayList<Adapter_row> adapter_row;
 
 	private class Adapter_row
 	{
@@ -47,7 +53,7 @@ public class Upcomming extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{		
+	{
 		View rootView = inflater.inflate(R.layout.layo_upcoming, container, false);
 		LoadListOfBookings(rootView, inflater);
 		return rootView;
@@ -57,9 +63,6 @@ public class Upcomming extends Fragment
 	{
 		lv_option_menu_list = (ListView) rootView.findViewById(R.id.layo_upcoming_lv_options);
 		lv_option_menu_list.setTextFilterEnabled(true);
-		//View footerView = inflater.inflate(R.layout.layo_upcoming_search, lv_option_menu_list, false);
-		//lv_option_menu_list.addHeaderView(footerView);
-		//EditText et_search = (EditText) rootView.findViewById(R.id.layo_upcoming_search_et_search);
 		EditText et_search = (EditText) rootView.findViewById(R.id.layo_upcoming_et_filter);
 		et_search.addTextChangedListener(new TextWatcher()
 		{
@@ -82,22 +85,55 @@ public class Upcomming extends Fragment
 
 		});
 
-		final ArrayList<Adapter_row> adapter_row = GetMyUpcomingRooms();
+		final ArrayList<Adapter_row> adapter_row = new ArrayList<Adapter_row>();
 		Adapter = new Adapter_BookingList(rootView.getContext(), adapter_row);
 		lv_option_menu_list.setAdapter(Adapter);
-		lv_option_menu_list.setOnItemClickListener(new OnItemClickListener() {
+		lv_option_menu_list.setOnItemClickListener(new OnItemClickListener()
+		{
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
 			{
 				Intent intent = new Intent(getActivity(), RoomDetail.class);
-			    startActivity(intent);
+				startActivity(intent);
 			}
-			
+
 		});
+		GetMyUpcomingRooms();
 	}
 
-	private ArrayList<Adapter_row> GetMyUpcomingRooms()
+	private void GetMyUpcomingRooms()
+	{
+		adapter_row = new ArrayList<Adapter_row>();
+		ReservationHistoryFilter filter = new ReservationHistoryFilter();
+		ReservationHistory QueryReservationHistory = new ReservationHistory();
+		try
+		{
+			filter.beginDate.set(new Date());
+			filter.number_days_ago = 30;
+			filter.userID = "1";
+			QueryReservationHistory.get(filter, new ReservationHistory.CallBackResultQuery()
+			{
+
+				@Override
+				public void onQueryHasFinished(Reservations[] reservations, Room[] rooms)
+				{
+					for (Reservations reservation : reservations)
+					{
+
+						adapter_row.add(new Adapter_row(reservation.interval.beginDateSAP(), "FALTA TITULO", reservation.interval
+								.beginTimeSAP(), Room.findByID(rooms, reservation.roomID).name));
+					}
+					Adapter.notifyDataSetChanged();
+				}
+			});
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private ArrayList<Adapter_row> GetMyUpcomingRooms_OLD()
 	{
 		ArrayList<Adapter_row> adapter_row = new ArrayList<Adapter_row>();
 		adapter_row.add(new Adapter_row("Tomorrow", "Board Meeting", "15:30", "Sapphire Room"));

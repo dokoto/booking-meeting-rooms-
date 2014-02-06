@@ -10,7 +10,7 @@ public class Reservations implements JSONable
 	public String reservationID;
 	public String roomID;
 	public String userID;
-	public DataRange interval;
+	public DateRange interval;
 	public boolean was_canceled;
 	public boolean was_abused;
 
@@ -21,7 +21,7 @@ public class Reservations implements JSONable
 
 	public Reservations()
 	{
-		interval = new DataRange();
+		interval = new DateRange();
 	}
 
 	@Override

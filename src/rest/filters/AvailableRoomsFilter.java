@@ -3,7 +3,7 @@ package rest.filters;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import rest.sap.structs.DataRange;
+import rest.sap.structs.DateRange;
 import rest.sap.structs.RoomAddrs;
 import rest.sap.structs.RoomSpecs;
 
@@ -30,7 +30,7 @@ import utils.json.JSONable;
  */
 public class AvailableRoomsFilter implements JSONable
 {
-	public DataRange interval;
+	public DateRange interval;
 	public RoomSpecs services;
 	public RoomAddrs location;
 
@@ -41,7 +41,7 @@ public class AvailableRoomsFilter implements JSONable
 
 	public AvailableRoomsFilter()
 	{
-		interval = new DataRange();
+		interval = new DateRange();
 		services = new RoomSpecs();
 		location = new RoomAddrs();
 	}

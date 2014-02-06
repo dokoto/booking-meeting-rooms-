@@ -33,6 +33,17 @@ public class Room implements JSONable
 		location = new RoomAddrs();
 	}
 
+	public static Room findByID(Room[] datas, String ID)
+	{
+		for(Room item : datas)
+		{
+			if (item.name.compareTo(ID) == 0)
+				return item;
+		}
+		
+		return new Room();
+	}
+	
 	@Override
 	public JSONObject toJSONObject()
 	{

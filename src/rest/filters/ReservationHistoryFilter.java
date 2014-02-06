@@ -2,13 +2,15 @@ package rest.filters;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import rest.sap.structs.DateM;
 import utils.json.JSONable;
 
 public class ReservationHistoryFilter implements JSONable
 {
 
 	public String userID;
-	public String beginDate;
+	public DateM beginDate;
 	public int number_days_ago;
 
 	public enum SAPFIELDS
@@ -39,11 +41,12 @@ public class ReservationHistoryFilter implements JSONable
 	{
 		try
 		{
+			
 			this.userID = src.getString(SAPFIELDS.USER_ID.toString());
-			this.beginDate = src.getString(SAPFIELDS.BEGDA.toString());
+			this.beginDate.set( src.getString(SAPFIELDS.BEGDA.toString()) );
 			this.number_days_ago = Integer.valueOf(src.getString(SAPFIELDS.NUMBER_DAYS_AGO.toString()));
 
-		} catch (JSONException e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 			return null;
